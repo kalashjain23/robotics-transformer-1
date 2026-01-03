@@ -5,16 +5,16 @@ import torch.nn.functional as F
 
 
 class MultiHeadAttention(Module):
-    def __init__(self, model_dim: int, heads: int):
+    def __init__(self, d_model: int, heads: int):
         super().__init__()
-        self.model_dim = model_dim
+        self.d_model = d_model
         self.heads = heads
-        self.d_k = model_dim // heads
+        self.d_k = d_model // heads
         
-        self.q = nn.Linear(model_dim, model_dim)
-        self.k = nn.Linear(model_dim, model_dim)
-        self.v = nn.Linear(model_dim, model_dim)
-        self.linear_out = nn.Linear(model_dim, model_dim)
+        self.q = nn.Linear(d_model, d_model)
+        self.k = nn.Linear(d_model, d_model)
+        self.v = nn.Linear(d_model, d_model)
+        self.linear_out = nn.Linear(d_model, d_model)
         
     def forward(self, x: Tensor):
         batch_size, seq_len, _ = x.shape
@@ -33,7 +33,7 @@ class MultiHeadAttention(Module):
         
         output, attention_weights = self._scaledDotProductAttention(Q, K, V)
         output = output.transpose(1, 2)
-        output = output.contiguous().view(batch_size, seq_len, self.model_dim)
+        output = output.contiguous().view(batch_size, seq_len, self.d_model)
         output = self.linear_out(output)
         
         return output
