@@ -45,8 +45,6 @@ class EfficientNetFiLM(Module):
                 
         # final conv layer
         x = self.projection(x)
-
-        x = x.flatten(2).transpose(1, 2)
         
         return x
         
