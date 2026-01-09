@@ -1,5 +1,6 @@
-from torch import Module, nn, Tensor
+from torch import nn, Tensor
 from multiHeadAttention import MultiHeadAttention
+from torch.nn import Module
 
 
 class TransformerDecoder(Module):
@@ -7,17 +8,17 @@ class TransformerDecoder(Module):
         super().__init__()
         
         self.attention = MultiHeadAttention(d_model, heads)
-        self.norm = nn.LayerNorm(d_model)
+        self.norm1 = nn.LayerNorm(d_model)
         self.ffn = nn.Sequential(
             nn.Linear(d_model, d_feed_forward),
             nn.GELU(),
-            nn.Linear(d_model, d_feed_forward),
+            nn.Linear(d_feed_forward, d_model),
         )
         self.norm2 = nn.LayerNorm(d_model)
         
     def forward(self, x: Tensor):
         attn_out = self.attention(x)
-        x = self.norm(x + attn_out)
+        x = self.norm1(x + attn_out)
         
         ffn_out = self.ffn(x)
         x = self.norm2(x + ffn_out)
