@@ -1,7 +1,7 @@
 [project]
 name = "robotics-transformer-1"
 version = "0.1.0"
-description = "Add your description here"
+description = "Implementation of RT-1: Robotics Transformer"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -9,4 +9,18 @@ dependencies = [
     "sentence-transformers>=5.1.2",
     "torch>=2.8.0",
     "torchvision>=0.23.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
 ]
