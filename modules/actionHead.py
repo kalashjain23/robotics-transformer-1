@@ -1,4 +1,5 @@
-from torch import nn, Module, Tensor
+from torch import nn, Tensor
+from torch.nn import Module
 
 
 class ActionHead(Module):
