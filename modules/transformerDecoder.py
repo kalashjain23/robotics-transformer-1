@@ -1,5 +1,5 @@
 from torch import nn, Tensor
-from multiHeadAttention import MultiHeadAttention
+from modules.multiHeadAttention import MultiHeadAttention
 from torch.nn import Module
 
 

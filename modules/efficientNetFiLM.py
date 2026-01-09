@@ -1,7 +1,7 @@
 from torch.nn import Module
 from torch import nn, Tensor
 from torchvision.models import efficientnet_b3
-from FiLM import FiLM
+from modules.FiLM import FiLM
 
 
 class EfficientNetFiLM(Module):
